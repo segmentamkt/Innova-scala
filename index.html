@@ -4215,6 +4215,1753 @@
     );
 
   </script>
+<!-- =========================================================
+     INNOVA ESCALA · ACTUALIZACIÓN INTERACTIVA NOVA
+     PEGAR JUSTO ANTES DE </body>
+========================================================= -->
 
+<style>
+/* =========================================================
+   RUTAS INTERACTIVAS NOVA
+========================================================= */
+
+.ie-backdrop{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  background:rgba(10,15,30,.52);
+  backdrop-filter:blur(5px);
+  opacity:0;
+  pointer-events:none;
+  transition:.25s ease;
+}
+
+.ie-backdrop.open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.ie-drawer{
+  position:fixed;
+  z-index:510;
+  top:12px;
+  right:12px;
+  bottom:12px;
+  width:min(620px,calc(100vw - 24px));
+  background:#fff;
+  border-radius:32px;
+  overflow-y:auto;
+  box-shadow:-30px 0 100px rgba(15,23,50,.25);
+  transform:translateX(calc(100% + 50px));
+  transition:.3s cubic-bezier(.2,.8,.2,1);
+}
+
+.ie-drawer.open{
+  transform:translateX(0);
+}
+
+.ie-drawer-head{
+  position:sticky;
+  top:0;
+  z-index:5;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:16px 20px;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid #e0e6f2;
+}
+
+.ie-drawer-head img{
+  width:50px;
+  height:50px;
+  border-radius:16px;
+  object-fit:cover;
+  object-position:center top;
+  background:#dff6ff;
+}
+
+.ie-drawer-head strong{
+  display:block;
+  font-size:14px;
+}
+
+.ie-drawer-head small{
+  display:block;
+  margin-top:3px;
+  color:#7a849d;
+  font-size:9px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.ie-close{
+  margin-left:auto;
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:#f0f2f7;
+  color:#101629;
+  font-size:20px;
+}
+
+.ie-drawer-body{
+  padding:30px;
+}
+
+.ie-route-label{
+  color:#2f2ac7;
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+
+.ie-drawer-body h2{
+  margin:10px 0 14px;
+  font-size:clamp(34px,5vw,48px);
+  line-height:.98;
+  letter-spacing:-.055em;
+}
+
+.ie-lead{
+  margin:0 0 24px;
+  color:#68738c;
+  font-size:13px;
+  line-height:1.7;
+}
+
+.ie-question-card{
+  padding:20px;
+  border:1px solid #e0e6f2;
+  border-radius:22px;
+  background:#f7f9fd;
+  margin-bottom:18px;
+}
+
+.ie-question-card h3{
+  margin:0 0 14px;
+  font-size:16px;
+}
+
+.ie-question{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  margin-top:10px;
+  color:#54617a;
+  font-size:11px;
+  line-height:1.5;
+}
+
+.ie-question b{
+  width:25px;
+  height:25px;
+  flex:0 0 auto;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#e6efff;
+  color:#2f2ac7;
+  font-size:9px;
+}
+
+.ie-step{
+  display:grid;
+  grid-template-columns:40px 1fr;
+  gap:12px;
+  padding:14px;
+  margin-top:10px;
+  border-radius:18px;
+  border:1px solid #e0e6f2;
+  background:#fff;
+}
+
+.ie-step-number{
+  width:40px;
+  height:40px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  background:#101629;
+  color:#fff;
+  font-size:10px;
+  font-weight:800;
+}
+
+.ie-step strong{
+  display:block;
+  font-size:12px;
+}
+
+.ie-step span{
+  display:block;
+  margin-top:5px;
+  color:#74809a;
+  font-size:10px;
+  line-height:1.55;
+}
+
+.ie-related{
+  margin:20px 0;
+  padding:21px;
+  border-radius:23px;
+  background:linear-gradient(145deg,#22345f,#354c84);
+  color:#fff;
+}
+
+.ie-related small{
+  color:#9fdcf0;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+
+.ie-related h3{
+  margin:8px 0;
+  font-size:21px;
+  letter-spacing:-.03em;
+}
+
+.ie-related p{
+  margin:0;
+  color:#c7d0df;
+  font-size:10px;
+  line-height:1.6;
+}
+
+.ie-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+
+.ie-button{
+  min-height:48px;
+  padding:13px 18px;
+  border-radius:999px;
+  border:0;
+  font-size:11px;
+  font-weight:800;
+}
+
+.ie-button-dark{
+  background:#101629;
+  color:#fff;
+}
+
+.ie-button-light{
+  background:#fff;
+  color:#101629;
+  border:1px solid #e0e6f2;
+}
+
+
+/* =========================================================
+   NUEVA BIBLIOTECA DE RECURSOS
+========================================================= */
+
+.ie-resource-shell{
+  padding:44px;
+  border-radius:40px;
+  background:#101629;
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+}
+
+.ie-resource-shell:after{
+  content:"";
+  position:absolute;
+  width:500px;
+  height:500px;
+  right:-190px;
+  top:-190px;
+  border-radius:50%;
+  background:radial-gradient(
+    circle,
+    rgba(114,204,233,.18),
+    transparent 70%
+  );
+  pointer-events:none;
+}
+
+.ie-resource-head{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:1.3fr .7fr;
+  gap:35px;
+  align-items:end;
+  margin-bottom:28px;
+}
+
+.ie-resource-head h2{
+  margin:8px 0 0;
+  font-size:clamp(42px,5vw,68px);
+  line-height:.96;
+  letter-spacing:-.06em;
+}
+
+.ie-resource-head p{
+  margin:0;
+  color:#aeb8ce;
+  font-size:12px;
+  line-height:1.7;
+}
+
+.ie-filters{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:24px;
+}
+
+.ie-filter{
+  padding:9px 13px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.05);
+  color:#b9c3d8;
+  font-size:10px;
+}
+
+.ie-filter.active,
+.ie-filter:hover{
+  background:#fff;
+  color:#101629;
+}
+
+.ie-video-grid{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.ie-video-card{
+  overflow:hidden;
+  border-radius:24px;
+  border:1px solid rgba(255,255,255,.08);
+  background:#171f35;
+  transition:.2s ease;
+}
+
+.ie-video-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(114,204,233,.55);
+}
+
+.ie-video-card.ie-hidden{
+  display:none;
+}
+
+.ie-video-thumb{
+  width:100%;
+  min-height:180px;
+  border:0;
+  display:grid;
+  place-items:center;
+  position:relative;
+  background:linear-gradient(145deg,#26335c,#374b82);
+  color:#fff;
+}
+
+.ie-video-card:nth-child(2n) .ie-video-thumb{
+  background:linear-gradient(145deg,#293058,#5b4db0);
+}
+
+.ie-video-card:nth-child(3n) .ie-video-thumb{
+  background:linear-gradient(145deg,#1f4663,#3aa4c7);
+}
+
+.ie-play{
+  width:57px;
+  height:57px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#fff;
+  color:#101629;
+  font-size:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
+}
+
+.ie-soon{
+  position:absolute;
+  top:14px;
+  left:14px;
+  padding:7px 9px;
+  border-radius:999px;
+  background:rgba(16,22,41,.8);
+  color:#fff;
+  font-size:8px;
+  font-weight:850;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.ie-video-info{
+  padding:19px;
+}
+
+.ie-category{
+  color:#76cce9;
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.ie-video-info h3{
+  margin:9px 0;
+  font-size:20px;
+  line-height:1.12;
+  letter-spacing:-.035em;
+}
+
+.ie-video-info p{
+  margin:0;
+  color:#9fa9bf;
+  font-size:10px;
+  line-height:1.6;
+}
+
+.ie-video-open{
+  width:100%;
+  padding:18px 0 0;
+  border:0;
+  background:none;
+  color:#dbe1ee;
+  display:flex;
+  justify-content:space-between;
+  font-size:10px;
+  font-weight:800;
+}
+
+
+/* =========================================================
+   MODAL VIDEO
+========================================================= */
+
+.ie-video-modal{
+  position:fixed;
+  inset:0;
+  z-index:600;
+  padding:20px;
+  display:grid;
+  place-items:center;
+  background:rgba(9,13,26,.72);
+  opacity:0;
+  pointer-events:none;
+  transition:.2s ease;
+}
+
+.ie-video-modal.open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.ie-video-dialog{
+  width:min(760px,100%);
+  overflow:hidden;
+  border-radius:30px;
+  background:#fff;
+  box-shadow:0 30px 100px rgba(0,0,0,.32);
+}
+
+.ie-video-stage{
+  min-height:390px;
+  padding:30px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  background:linear-gradient(145deg,#202e56,#4c5ea0);
+  color:#fff;
+}
+
+.ie-video-stage .ie-play{
+  margin:auto;
+}
+
+.ie-video-stage h2{
+  max-width:600px;
+  margin:20px auto 8px;
+  font-size:30px;
+  line-height:1.05;
+  letter-spacing:-.04em;
+}
+
+.ie-video-stage p{
+  max-width:470px;
+  margin:auto;
+  color:#cad3e4;
+  font-size:11px;
+  line-height:1.65;
+}
+
+.ie-video-footer{
+  padding:17px 21px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+}
+
+.ie-video-footer span{
+  color:#717c94;
+  font-size:10px;
+}
+
+
+/* Ocultamos la cajita vieja de rutas */
+#routeBox{
+  display:none !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:900px){
+
+  .ie-resource-head{
+    grid-template-columns:1fr;
+  }
+
+  .ie-video-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:620px){
+
+  .ie-drawer{
+    top:7px;
+    right:7px;
+    bottom:7px;
+    width:calc(100vw - 14px);
+    border-radius:25px;
+  }
+
+  .ie-drawer-body{
+    padding:21px;
+  }
+
+  .ie-resource-shell{
+    padding:23px;
+    border-radius:30px;
+  }
+
+  .ie-video-grid{
+    grid-template-columns:1fr;
+  }
+
+  .ie-video-thumb{
+    min-height:195px;
+  }
+
+  .ie-video-stage{
+    min-height:330px;
+  }
+
+  .ie-video-footer{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+}
+</style>
+
+
+<!-- OVERLAY -->
+<div class="ie-backdrop" id="ieBackdrop"></div>
+
+
+<!-- DRAWER NOVA -->
+<aside class="ie-drawer" id="ieDrawer">
+
+  <div class="ie-drawer-head">
+
+    <img
+      id="ieDrawerNova"
+      alt="Nova"
+    >
+
+    <div>
+      <strong>Nova</strong>
+      <small>Asistente de orientación</small>
+    </div>
+
+    <button
+      type="button"
+      class="ie-close"
+      id="ieDrawerClose"
+    >
+      ×
+    </button>
+
+  </div>
+
+  <div
+    class="ie-drawer-body"
+    id="ieDrawerBody"
+  ></div>
+
+</aside>
+
+
+<!-- MODAL DE VIDEOS -->
+<div
+  class="ie-video-modal"
+  id="ieVideoModal"
+>
+
+  <div class="ie-video-dialog">
+
+    <div class="ie-video-stage">
+
+      <div>
+
+        <div class="ie-play">
+          ▶
+        </div>
+
+        <h2 id="ieVideoTitle">
+          Recurso gratuito
+        </h2>
+
+        <p>
+          Este espacio está preparado para incorporar
+          el video real de Innova Escala.
+          Por ahora el contenido está marcado como
+          “Próximamente”.
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="ie-video-footer">
+
+      <span>
+        Contenido educativo · Innova Escala Corp
+      </span>
+
+      <button
+        type="button"
+        class="ie-button ie-button-dark"
+        id="ieVideoClose"
+      >
+        Cerrar
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+(function(){
+
+/* =========================================================
+   1. RECUPERAMOS A NOVA REAL DEL HTML ORIGINAL
+========================================================= */
+
+const originalNova =
+  document.querySelector(".nova-welcome img") ||
+  document.querySelector(".nova-trigger img") ||
+  document.querySelector(".nova-top img");
+
+const novaSource =
+  originalNova ? originalNova.src : "";
+
+const drawerNova =
+  document.getElementById("ieDrawerNova");
+
+if(drawerNova && novaSource){
+  drawerNova.src = novaSource;
+}
+
+
+/* =========================================================
+   2. NUEVAS OPCIONES DEL ORIENTADOR PRINCIPAL
+========================================================= */
+
+const issueGrid =
+  document.querySelector(".issue-grid");
+
+if(issueGrid){
+
+  issueGrid.innerHTML = `
+
+    <button class="issue" data-ie-route="empresa">
+      Quiero constituir una empresa
+    </button>
+
+    <button class="issue" data-ie-route="dian">
+      Tengo una duda con la DIAN
+    </button>
+
+    <button class="issue" data-ie-route="peticion">
+      Quiero presentar un derecho de petición
+    </button>
+
+    <button class="issue" data-ie-route="tutela">
+      Quiero entender cómo funciona una tutela
+    </button>
+
+    <button class="issue" data-ie-route="contrato">
+      Necesito revisar un contrato
+    </button>
+
+    <button class="issue" data-ie-route="tecnologia">
+      Quiero organizar o digitalizar mi negocio
+    </button>
+
+    <button class="issue" data-ie-route="conflicto">
+      Tengo un conflicto y quiero buscar un acuerdo
+    </button>
+
+    <button class="issue" data-ie-route="aprender">
+      Solo quiero aprender
+    </button>
+
+  `;
+
+}
+
+
+/* =========================================================
+   3. CONTENIDO DE LAS RUTAS
+========================================================= */
+
+const ieRoutes = {
+
+  empresa:{
+    label:"EMPRENDIMIENTO Y FORMALIZACIÓN",
+
+    title:"Quiero constituir una empresa",
+
+    lead:
+      "Antes de registrarla conviene entender cómo vas a operar, quiénes participarán y qué estructura puede ajustarse mejor a tu proyecto.",
+
+    questions:[
+      "¿Vas a emprender solo o con uno o más socios?",
+      "¿Cuál será la actividad principal del negocio?",
+      "¿Cómo se aportará el capital?",
+      "¿Cómo se tomarán las decisiones?",
+      "¿Necesitas separar el patrimonio personal del riesgo del negocio?"
+    ],
+
+    steps:[
+      {
+        title:"Define cómo vas a operar",
+        text:"Empieza por saber quién participa, qué hará el negocio y cómo funcionará."
+      },
+      {
+        title:"Compara alternativas",
+        text:"Persona natural y sociedad tienen diferencias en responsabilidad, administración y obligaciones."
+      },
+      {
+        title:"Valida nombre y actividad",
+        text:"Revisa el nombre que quieres utilizar y define claramente la actividad económica."
+      },
+      {
+        title:"Organiza la constitución",
+        text:"Prepara la información de socios, capital, administración y reglas básicas de funcionamiento."
+      },
+      {
+        title:"Mira lo que viene después",
+        text:"La constitución puede generar obligaciones tributarias, contables, laborales y de facturación."
+      }
+    ],
+
+    resource:"¿Qué tipo de empresa me conviene?",
+    video:"empresa",
+    topic:"Legal y formalización"
+  },
+
+
+  dian:{
+    label:"DIAN Y TRIBUTARIO",
+
+    title:"Tengo una duda con la DIAN",
+
+    lead:
+      "Si recibiste una comunicación o no entiendes una obligación, empieza por identificar exactamente qué documento tienes enfrente.",
+
+    questions:[
+      "¿La comunicación parece auténtica?",
+      "¿Qué impuesto u obligación menciona?",
+      "¿Qué período aparece?",
+      "¿Existe una fecha límite?",
+      "¿Conservas el correo o documento completo?"
+    ],
+
+    steps:[
+      {
+        title:"Identifica la comunicación",
+        text:"Un mensaje informativo, una notificación y un requerimiento no necesariamente significan lo mismo."
+      },
+      {
+        title:"Ubica la obligación",
+        text:"Determina qué declaración, registro, impuesto o período está relacionado."
+      },
+      {
+        title:"Organiza los soportes",
+        text:"Reúne la información relacionada antes de responder o tomar una decisión."
+      },
+      {
+        title:"Revisa si necesitas acompañamiento",
+        text:"Cuando existen plazos, sanciones o requerimientos formales puede ser necesaria una revisión específica."
+      }
+    ],
+
+    resource:"Me llegó un correo de la DIAN, ¿qué reviso?",
+    video:"dian",
+    topic:"Contable / tributaria / DIAN"
+  },
+
+
+  peticion:{
+    label:"ORIENTACIÓN LEGAL",
+
+    title:"Quiero presentar un derecho de petición",
+
+    lead:
+      "Antes de redactar, define qué quieres solicitar, a quién va dirigida la petición y cuáles son los hechos importantes.",
+
+    questions:[
+      "¿A quién va dirigida?",
+      "¿Qué ocurrió?",
+      "¿Qué necesitas que responda o haga la entidad o persona?",
+      "¿Qué documentos ayudan a entender la situación?"
+    ],
+
+    steps:[
+      {
+        title:"Define el objetivo",
+        text:"Ten claro qué respuesta, información o actuación estás solicitando."
+      },
+      {
+        title:"Organiza los hechos",
+        text:"Cuéntalos de forma sencilla y, cuando sea posible, en orden cronológico."
+      },
+      {
+        title:"Formula una solicitud concreta",
+        text:"Evita peticiones ambiguas y expresa claramente qué necesitas."
+      },
+      {
+        title:"Conserva evidencia",
+        text:"Guarda copia del documento y del medio por el cual fue presentado."
+      }
+    ],
+
+    resource:"¿Cómo presentar un derecho de petición?",
+    video:"peticion",
+    topic:"Legal y formalización"
+  },
+
+
+  tutela:{
+    label:"ORIENTACIÓN LEGAL",
+
+    title:"Quiero entender cómo funciona una tutela",
+
+    lead:
+      "El primer paso es comprender qué ocurrió, qué derecho fundamental consideras afectado y cuáles son las circunstancias concretas.",
+
+    questions:[
+      "¿Qué ocurrió?",
+      "¿Qué derecho consideras afectado?",
+      "¿Quién realizó la acción u omisión?",
+      "¿Cuándo sucedió?",
+      "¿Existe otro trámite relacionado?"
+    ],
+
+    steps:[
+      {
+        title:"Ordena los hechos",
+        text:"Explica de forma clara lo sucedido y cuándo ocurrió."
+      },
+      {
+        title:"Identifica el derecho",
+        text:"Relaciona la situación con el derecho fundamental que consideras comprometido."
+      },
+      {
+        title:"Reúne soportes",
+        text:"Organiza documentos y comunicaciones que permitan comprender el caso."
+      },
+      {
+        title:"Evalúa la ruta",
+        text:"La procedencia de una tutela depende de las circunstancias específicas de cada situación."
+      }
+    ],
+
+    resource:"Acción de tutela: lo que debes entender primero",
+    video:"tutela",
+    topic:"Legal y formalización"
+  },
+
+
+  contrato:{
+    label:"CONTRATOS",
+
+    title:"Necesito revisar un contrato",
+
+    lead:
+      "Antes de firmarlo debes poder explicar, en palabras sencillas, qué estás aceptando y qué debe hacer cada una de las partes.",
+
+    questions:[
+      "¿Las partes están correctamente identificadas?",
+      "¿El objeto del contrato es claro?",
+      "¿Los pagos están definidos?",
+      "¿Las fechas y entregables están claros?",
+      "¿Entiendes cómo puede terminar el contrato?"
+    ],
+
+    steps:[
+      {
+        title:"Revisa el objeto",
+        text:"Debe estar claro qué se vende, entrega, arrienda, contrata o presta."
+      },
+      {
+        title:"Ubica las obligaciones",
+        text:"Identifica qué debe hacer cada parte."
+      },
+      {
+        title:"Revisa dinero y tiempos",
+        text:"Verifica pagos, plazos, entregables y consecuencias del incumplimiento."
+      },
+      {
+        title:"Entiende cómo termina",
+        text:"Revisa las condiciones de terminación y solución de controversias."
+      }
+    ],
+
+    resource:"5 cosas que debes revisar antes de firmar un contrato",
+    video:"contrato",
+    topic:"Legal y formalización"
+  },
+
+
+  tecnologia:{
+    label:"TECNOLOGÍA E INNOVACIÓN",
+
+    title:"Quiero organizar o digitalizar mi negocio",
+
+    lead:
+      "No empieces comprando software. Empieza encontrando la tarea que más tiempo consume, se repite o produce errores.",
+
+    questions:[
+      "¿Qué tarea te quita más tiempo?",
+      "¿Qué información registras varias veces?",
+      "¿Dónde ocurren errores frecuentes?",
+      "¿Qué proceso depende demasiado de tareas manuales?"
+    ],
+
+    steps:[
+      {
+        title:"Mapea el proceso",
+        text:"Describe cómo funciona actualmente, desde el inicio hasta el final."
+      },
+      {
+        title:"Encuentra la fricción",
+        text:"Identifica repeticiones, esperas, errores y dobles registros."
+      },
+      {
+        title:"Prioriza una mejora",
+        text:"No automatices todo al mismo tiempo. Empieza por un problema concreto."
+      },
+      {
+        title:"Selecciona la herramienta",
+        text:"La tecnología debe responder al proceso y no al revés."
+      }
+    ],
+
+    resource:"¿Qué proceso de mi negocio debería automatizar primero?",
+    video:"automatizacion",
+    topic:"Tecnología e innovación"
+  },
+
+
+  conflicto:{
+    label:"ORIENTACIÓN Y ACUERDOS",
+
+    title:"Tengo un conflicto",
+
+    lead:
+      "Antes de escalar una controversia, conviene separar los hechos de las opiniones y entender qué resultado estás buscando.",
+
+    questions:[
+      "¿Quiénes participan?",
+      "¿Qué ocurrió?",
+      "¿Desde cuándo existe el problema?",
+      "¿Hay contrato o acuerdo previo?",
+      "¿Qué resultado quisieras lograr?"
+    ],
+
+    steps:[
+      {
+        title:"Ordena los hechos",
+        text:"Diferencia hechos, documentos, conversaciones y opiniones."
+      },
+      {
+        title:"Define el desacuerdo",
+        text:"Identifica específicamente qué punto está sin resolver."
+      },
+      {
+        title:"Explora alternativas",
+        text:"Dependiendo del caso pueden existir opciones de diálogo, negociación u otros mecanismos de resolución de controversias."
+      },
+      {
+        title:"Busca orientación",
+        text:"La alternativa adecuada depende del tipo de conflicto y de las circunstancias particulares."
+      }
+    ],
+
+    resource:"Entender opciones para buscar un acuerdo",
+    video:null,
+    topic:"Conciliación"
+  },
+
+
+  aprender:{
+    label:"CENTRO DE CONOCIMIENTO",
+
+    title:"Solo quiero aprender",
+
+    lead:
+      "No necesitas tener un problema para utilizar Innova Escala. Puedes comenzar explorando gratuitamente los contenidos disponibles.",
+
+    questions:[
+      "Derechos y orientación legal",
+      "Creación y formalización de empresas",
+      "DIAN y temas tributarios",
+      "Contratos y marcas",
+      "Tecnología y automatización"
+    ],
+
+    steps:[
+      {
+        title:"Selecciona un tema",
+        text:"Utiliza los filtros de la biblioteca para encontrar lo que te interesa."
+      },
+      {
+        title:"Abre un recurso",
+        text:"Cada tema está preparado para recibir videos y contenidos educativos."
+      },
+      {
+        title:"Profundiza si lo necesitas",
+        text:"Si la información general no resuelve tu situación, puedes solicitar orientación."
+      }
+    ],
+
+    resource:"Explorar todos los recursos gratuitos",
+    video:null,
+    topic:"Quiero aprender"
+  }
+
+};
+
+
+/* =========================================================
+   4. DRAWER
+========================================================= */
+
+const drawer =
+  document.getElementById("ieDrawer");
+
+const drawerBody =
+  document.getElementById("ieDrawerBody");
+
+const backdrop =
+  document.getElementById("ieBackdrop");
+
+function openIERoute(key){
+
+  const route = ieRoutes[key];
+
+  if(!route) return;
+
+  const questions =
+    route.questions.map(
+      (q,index)=>`
+        <div class="ie-question">
+          <b>${index + 1}</b>
+          <span>${q}</span>
+        </div>
+      `
+    ).join("");
+
+  const steps =
+    route.steps.map(
+      (step,index)=>`
+        <div class="ie-step">
+
+          <div class="ie-step-number">
+            ${String(index + 1).padStart(2,"0")}
+          </div>
+
+          <div>
+            <strong>${step.title}</strong>
+            <span>${step.text}</span>
+          </div>
+
+        </div>
+      `
+    ).join("");
+
+  const resourceButton =
+    route.video
+    ? `
+      <button
+        type="button"
+        class="ie-button ie-button-light"
+        data-ie-video="${route.video}"
+      >
+        Ver recurso gratuito ▶
+      </button>
+    `
+    : `
+      <button
+        type="button"
+        class="ie-button ie-button-light"
+        id="ieGoResources"
+      >
+        Ver recursos gratuitos ↓
+      </button>
+    `;
+
+  drawerBody.innerHTML = `
+
+    <div class="ie-route-label">
+      ${route.label}
+    </div>
+
+    <h2>
+      ${route.title}
+    </h2>
+
+    <p class="ie-lead">
+      ${route.lead}
+    </p>
+
+    <div class="ie-question-card">
+
+      <h3>
+        Antes de empezar, pregúntate:
+      </h3>
+
+      ${questions}
+
+    </div>
+
+    ${steps}
+
+    <div class="ie-related">
+
+      <small>
+        RECURSO RELACIONADO
+      </small>
+
+      <h3>
+        ${route.resource}
+      </h3>
+
+      <p>
+        Empieza por entender el tema.
+        Si después necesitas revisar tu situación
+        específica, puedes solicitar orientación.
+      </p>
+
+    </div>
+
+    <div class="ie-actions">
+
+      ${resourceButton}
+
+      <button
+        type="button"
+        class="ie-button ie-button-dark"
+        id="ieContactButton"
+      >
+        Solicitar orientación →
+      </button>
+
+    </div>
+
+  `;
+
+  drawer.classList.add("open");
+  backdrop.classList.add("open");
+
+  document
+    .querySelectorAll("[data-ie-video]")
+    .forEach(btn=>{
+      btn.onclick=()=>{
+        openIEVideo(btn.dataset.ieVideo);
+      };
+    });
+
+  const resourceGo =
+    document.getElementById("ieGoResources");
+
+  if(resourceGo){
+    resourceGo.onclick=()=>{
+      closeIERoute();
+      document
+        .getElementById("recursos")
+        ?.scrollIntoView({
+          behavior:"smooth"
+        });
+    };
+  }
+
+  const contactButton =
+    document.getElementById("ieContactButton");
+
+  if(contactButton){
+    contactButton.onclick=()=>{
+      goIEContact(route.topic);
+    };
+  }
+
+}
+
+function closeIERoute(){
+  drawer.classList.remove("open");
+  backdrop.classList.remove("open");
+}
+
+document
+  .getElementById("ieDrawerClose")
+  .onclick=closeIERoute;
+
+backdrop.onclick=closeIERoute;
+
+
+/* =========================================================
+   5. ACTIVAMOS LOS BOTONES PRINCIPALES
+========================================================= */
+
+document
+  .querySelectorAll("[data-ie-route]")
+  .forEach(btn=>{
+
+    btn.addEventListener("click",()=>{
+
+      document
+        .querySelectorAll("[data-ie-route]")
+        .forEach(x=>
+          x.classList.remove("active")
+        );
+
+      btn.classList.add("active");
+
+      openIERoute(
+        btn.dataset.ieRoute
+      );
+
+    });
+
+  });
+
+
+/* =========================================================
+   6. ACTUALIZAMOS NOVA FLOTANTE
+========================================================= */
+
+const novaOptions =
+  document.querySelector(".nova-options");
+
+if(novaOptions){
+
+  novaOptions.innerHTML = `
+
+    <button
+      class="nova-option"
+      data-ie-float="empresa"
+    >
+      Quiero constituir una empresa
+    </button>
+
+    <button
+      class="nova-option"
+      data-ie-float="peticion"
+    >
+      Necesito un derecho de petición
+    </button>
+
+    <button
+      class="nova-option"
+      data-ie-float="tutela"
+    >
+      Quiero entender una tutela
+    </button>
+
+    <button
+      class="nova-option"
+      data-ie-float="dian"
+    >
+      Tengo una duda con la DIAN
+    </button>
+
+    <button
+      class="nova-option"
+      data-ie-float="aprender"
+    >
+      Quiero ver recursos gratuitos
+    </button>
+
+  `;
+
+  document
+    .querySelectorAll("[data-ie-float]")
+    .forEach(btn=>{
+
+      btn.addEventListener("click",()=>{
+
+        document
+          .getElementById("novaPanel")
+          ?.classList.remove("open");
+
+        openIERoute(
+          btn.dataset.ieFloat
+        );
+
+      });
+
+    });
+
+}
+
+
+/* =========================================================
+   7. RECONSTRUIMOS LA SECCIÓN DE RECURSOS
+========================================================= */
+
+const resourcesSection =
+  document.getElementById("recursos");
+
+if(resourcesSection){
+
+  resourcesSection.innerHTML = `
+
+    <div class="container">
+
+      <div class="ie-resource-shell">
+
+        <div class="ie-resource-head">
+
+          <div>
+
+            <div
+              class="eyebrow"
+              style="color:#86d4ef"
+            >
+              RECURSOS GRATUITOS
+            </div>
+
+            <h2>
+              Aprende a tu ritmo.
+            </h2>
+
+          </div>
+
+          <p>
+            Videos y contenidos para entender
+            situaciones frecuentes antes de tomar
+            una decisión. Esta biblioteca crecerá
+            progresivamente con nuevos recursos.
+          </p>
+
+        </div>
+
+        <div class="ie-filters">
+
+          <button
+            class="ie-filter active"
+            data-ie-filter="all"
+          >
+            Todos
+          </button>
+
+          <button
+            class="ie-filter"
+            data-ie-filter="legal"
+          >
+            Legal
+          </button>
+
+          <button
+            class="ie-filter"
+            data-ie-filter="empresa"
+          >
+            Empresas
+          </button>
+
+          <button
+            class="ie-filter"
+            data-ie-filter="dian"
+          >
+            DIAN
+          </button>
+
+          <button
+            class="ie-filter"
+            data-ie-filter="tech"
+          >
+            Tecnología
+          </button>
+
+        </div>
+
+        <div class="ie-video-grid">
+
+          ${videoCard(
+            "peticion",
+            "legal",
+            "Legal",
+            "¿Cómo presentar un derecho de petición?",
+            "Qué es, qué información conviene organizar y cómo comenzar."
+          )}
+
+          ${videoCard(
+            "tutela",
+            "legal",
+            "Legal",
+            "Acción de tutela: lo que debes entender primero",
+            "Una introducción sencilla para comprender su propósito."
+          )}
+
+          ${videoCard(
+            "empresa",
+            "empresa",
+            "Empresas",
+            "¿Qué tipo de empresa me conviene?",
+            "Preguntas que conviene hacerse antes de elegir una estructura."
+          )}
+
+          ${videoCard(
+            "sas",
+            "empresa",
+            "Empresas",
+            "Antes de constituir una SAS",
+            "Socios, actividad, capital y reglas básicas que conviene pensar."
+          )}
+
+          ${videoCard(
+            "dian",
+            "dian",
+            "DIAN",
+            "Me llegó un correo de la DIAN, ¿qué reviso?",
+            "Cómo empezar a identificar y organizar una comunicación."
+          )}
+
+          ${videoCard(
+            "facturacion",
+            "dian",
+            "DIAN",
+            "Facturación electrónica: conceptos básicos",
+            "Una introducción a los principales conceptos y documentos."
+          )}
+
+          ${videoCard(
+            "contrato",
+            "legal",
+            "Legal",
+            "5 cosas que debes revisar antes de firmar un contrato",
+            "Partes, objeto, obligaciones, pagos, tiempos y terminación."
+          )}
+
+          ${videoCard(
+            "marca",
+            "empresa",
+            "Empresas",
+            "Nombre de empresa y marca: no son lo mismo",
+            "Comprende por qué son conceptos diferentes."
+          )}
+
+          ${videoCard(
+            "automatizacion",
+            "tech",
+            "Tecnología",
+            "¿Qué proceso de mi negocio debería automatizar primero?",
+            "Empieza identificando repetición, tiempo perdido y errores."
+          )}
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   8. GENERADOR DE TARJETAS
+========================================================= */
+
+function videoCard(
+  key,
+  category,
+  categoryName,
+  title,
+  description
+){
+
+  return `
+
+    <article
+      class="ie-video-card"
+      data-ie-category="${category}"
+    >
+
+      <button
+        type="button"
+        class="ie-video-thumb"
+        data-ie-video="${key}"
+      >
+
+        <span class="ie-soon">
+          Próximamente
+        </span>
+
+        <span class="ie-play">
+          ▶
+        </span>
+
+      </button>
+
+      <div class="ie-video-info">
+
+        <div class="ie-category">
+          ${categoryName}
+        </div>
+
+        <h3>
+          ${title}
+        </h3>
+
+        <p>
+          ${description}
+        </p>
+
+        <button
+          type="button"
+          class="ie-video-open"
+          data-ie-video="${key}"
+        >
+          <span>Ver recurso</span>
+          <span>↗</span>
+        </button>
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+
+/* =========================================================
+   9. VIDEOS
+========================================================= */
+
+const ieVideos = {
+
+  peticion:
+    "¿Cómo presentar un derecho de petición?",
+
+  tutela:
+    "Acción de tutela: lo que debes entender primero",
+
+  empresa:
+    "¿Qué tipo de empresa me conviene?",
+
+  sas:
+    "Antes de constituir una SAS",
+
+  dian:
+    "Me llegó un correo de la DIAN, ¿qué reviso?",
+
+  facturacion:
+    "Facturación electrónica: conceptos básicos",
+
+  contrato:
+    "5 cosas que debes revisar antes de firmar un contrato",
+
+  marca:
+    "Nombre de empresa y marca: no son lo mismo",
+
+  automatizacion:
+    "¿Qué proceso de mi negocio debería automatizar primero?"
+
+};
+
+const videoModal =
+  document.getElementById("ieVideoModal");
+
+const videoTitle =
+  document.getElementById("ieVideoTitle");
+
+function openIEVideo(key){
+
+  closeIERoute();
+
+  videoTitle.textContent =
+    ieVideos[key] ||
+    "Recurso gratuito";
+
+  videoModal.classList.add("open");
+
+}
+
+function closeIEVideo(){
+  videoModal.classList.remove("open");
+}
+
+document
+  .getElementById("ieVideoClose")
+  .onclick=closeIEVideo;
+
+videoModal.addEventListener(
+  "click",
+  event=>{
+    if(event.target === videoModal){
+      closeIEVideo();
+    }
+  }
+);
+
+document.addEventListener(
+  "click",
+  event=>{
+
+    const button =
+      event.target.closest("[data-ie-video]");
+
+    if(!button) return;
+
+    openIEVideo(
+      button.dataset.ieVideo
+    );
+
+  }
+);
+
+
+/* =========================================================
+   10. FILTROS
+========================================================= */
+
+document.addEventListener(
+  "click",
+  event=>{
+
+    const filterButton =
+      event.target.closest("[data-ie-filter]");
+
+    if(!filterButton) return;
+
+    document
+      .querySelectorAll(".ie-filter")
+      .forEach(btn=>
+        btn.classList.remove("active")
+      );
+
+    filterButton
+      .classList.add("active");
+
+    const selected =
+      filterButton.dataset.ieFilter;
+
+    document
+      .querySelectorAll(".ie-video-card")
+      .forEach(card=>{
+
+        const hide =
+          selected !== "all" &&
+          card.dataset.ieCategory !== selected;
+
+        card.classList.toggle(
+          "ie-hidden",
+          hide
+        );
+
+      });
+
+  }
+);
+
+
+/* =========================================================
+   11. CONTACTO
+========================================================= */
+
+function goIEContact(topic){
+
+  closeIERoute();
+
+  const contact =
+    document.getElementById("contacto");
+
+  const select =
+    contact?.querySelector("select");
+
+  if(select){
+
+    const option =
+      [...select.options]
+        .find(
+          option =>
+            option.textContent.trim() === topic
+        );
+
+    if(option){
+      select.value = option.value;
+    }
+
+  }
+
+  contact?.scrollIntoView({
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================================================
+   12. ESCAPE
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  event=>{
+
+    if(event.key === "Escape"){
+      closeIERoute();
+      closeIEVideo();
+    }
+
+  }
+);
+
+})();
+</script>
 </body>
 </html>
